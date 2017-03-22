@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        .wrapper{
+            margin:10px auto;
+            text-align: center;
+        }
+        .wrap{
+            position: relative;
+            width:600px;
+            height:200px;
+            border:2px solid grey;
+            overflow: hidden;
+            margin:10px auto;
+        }
+        .wrap ul{
+            position: absolute;
+            width:1600px;
+            overflow: hidden;
+            left:0;
+            top:0;
+            padding:0;
+        }
+        .wrap ul li{
+            float: left;
+            width:200px;
+            list-style:none;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <a href="javascript:;" class="goLeft btn btn-info">go left</a>
+    <a href="javascript:;" class="goRight btn btn-success">go right</a>
+    <div class="wrap">
+        <ul>
+            <li><img src="image/500x300_1.jpg" style="width:90%;"></li>
+            <li><img src="image/500x300_2.jpg" style="width:90%;"></li>
+            <li><img src="image/500x300_3.jpg" style="width:90%;"></li>
+            <li><img src="image/500x300_4.jpg" style="width:90%;"></li>
+            <li><img src="image/500x300_5.jpg" style="width:90%;"></li>
+        </ul>
+    </div>
+</div>
+
+<script src="jquery-3.1.0.js"></script>
+<script>
+    var ulElem=$('.wrap ul');
+    var ulElemHtml=ulElem.html();
+    ulElem.html(ulElemHtml+ulElemHtml);
+    var timeId=null;
+
+    var $lis=$('.wrap ul li');
+    var liWidth=$lis.eq(0).width();
+    ulWidth=liWidth*$lis.length
+    ulElem.width(ulWidth);
+
+    var speed=2;
+
+    timeId=setInterval(slide,50);
+
+    $('.wrap').mouseenter(function () {
+        clearInterval(timeId);
+    });
+
+    $('.wrap').mouseleave(function () {
+        timeId=setInterval(slide,50);
+    });
+
+    $('.goLeft').click(function () {
+        speed=-2;
+    });
+
+    $('.goRight').click(function () {
+         speed=2;
+    });
+
+    function slide() {
+        if(speed>0)
+        {
+            if(ulElem.css('left')=='0px')
+            {
+                ulElem.css('left',-ulWidth/2+'px');
+            }
+            ulElem.css('left','+='+speed+'px')
+        }
+
+        if(speed<0)
+        {
+            if(ulElem.css('left')<=-ulWidth/2+'px')
+            {
+                ulElem.css('left',0);
+            }
+            ulElem.css('left','+='+speed+'px');
+        }
+    }
+</script>
+</body>
+</html>
